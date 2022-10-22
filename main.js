@@ -1,23 +1,51 @@
-const numberOfSeries = prompt("Nechta serial ko'rgansiz");
-
+let numberOfSeries;
+(function startApp(){
+    numberOfSeries = +prompt("Nechta serial ko'rgansiz");
+    while(numberOfSeries=="" || numberOfSeries==null || isNaN(numberOfSeries)){
+        numberOfSeries = prompt("Nechta serial ko'rgansiz");
+    }
+})()
 const seriesDB = {
     count:numberOfSeries,
-    series: undefined,
-    actors:undefined,
+    series: {},
+    actors:{},
     genres:[],
     private:false
 }
 const series = {}
-for (let i=1;i<3;i++){
-    const serieName = prompt("Oxirgi ko’rgan serialingiz?");
-    const count = prompt("Nechi baxo berasiz?");
-    if (serieName=="" & count==""){
-        i--;
-    }else{
-        series[serieName] = count;
+function rememberMySeries(){
+    for (let i=1;i<3;i++){
+        const serieName = prompt("Oxirgi ko’rgan serialingiz?");
+        const count = prompt("Nechi baxo berasiz?");
+        if (serieName=="" & count==""){
+            i--;
+        }else{
+            series[serieName] = count;
+        }
     }
-    
+}
+rememberMySeries()
+
+function showDB(){
+    if(seriesDB.private==false){
+        console.log(series);
+    }
 }
 
+showDB();
 
-console.log(series);
+function fvrts(){
+    const favorites= []
+    for(let i=1;i<4;i++){
+        let ask = prompt("Yaxshi ko'rgan janiringiz? ")
+        if (ask=="" || ask==null){
+            i--;
+        }else{
+            favorites.push(ask)
+        }
+    }
+    console.log(favorites);
+}
+fvrts()
+
+
