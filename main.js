@@ -1,51 +1,60 @@
-let numberOfSeries;
-(function startApp(){
-    numberOfSeries = +prompt("Nechta serial ko'rgansiz");
-    while(numberOfSeries=="" || numberOfSeries==null || isNaN(numberOfSeries)){
-        numberOfSeries = prompt("Nechta serial ko'rgansiz");
-    }
-})()
+"use-strict"
 const seriesDB = {
-    count:numberOfSeries,
+    count:0,
     series: {},
     actors:{},
     genres:[],
-    private:false
-}
-const series = {}
-function rememberMySeries(){
-    for (let i=1;i<3;i++){
-        const serieName = prompt("Oxirgi ko’rgan serialingiz?");
-        const count = prompt("Nechi baxo berasiz?");
-        if (serieName=="" & count==""){
-            i--;
-        }else{
-            series[serieName] = count;
+    private:false,
+    start:()=>{
+        seriesDB.count = +prompt("Nechta serial ko'rgansiz");
+        while(seriesDB.count=="" || seriesDB.count==null || isNaN(seriesDB.count)){
+            seriesDB.count = prompt("Nechta serial ko'rgansiz");
         }
-    }
-}
-rememberMySeries()
-
-function showDB(){
-    if(seriesDB.private==false){
-        console.log(series);
-    }
-}
-
-showDB();
-
-function fvrts(){
-    const favorites= []
-    for(let i=1;i<4;i++){
-        let ask = prompt("Yaxshi ko'rgan janiringiz? ")
-        if (ask=="" || ask==null){
-            i--;
-        }else{
-            favorites.push(ask)
+    },
+    rememberSeries:()=>{
+        
+        for (let i=1;i<3;i++){
+            const serieName = prompt("Oxirgi ko'rgan serialingiz?");
+            const count = prompt("Nechi baxo berasiz?");
+            if (serieName=="" & count==""){
+                i--;
+            }else{
+                seriesDB.series[serieName] = count;
+            }
         }
-    }
-    console.log(favorites);
+    },
+    showDB:()=>{
+        if(seriesDB.private==false){
+            console.log(seriesDB.series);
+        }
+    },
+    fvrts:()=>{
+        for(let i=1;i<4;i++){
+            let ask = prompt("Yaxshi ko'rgan janiringiz? ")
+            if (ask=="" || ask==null){
+                i--;
+            }else{
+                seriesDB.genres.push(ask)
+            }
+        }
+        console.log(seriesDB.genres.forEach((item,index)=>{
+            console.log(`Yaxshi ko'rgan janringiz ${item} nomi, massivdagi ${index} element`);
+        }));
+    },
+    visibleDB:()=>{
+        seriesDB.private=!seriesDB.private;
+    },
 }
-fvrts()
+seriesDB.start();
+seriesDB.rememberSeries();
+seriesDB.showDB();
+seriesDB.fvrts();
+seriesDB.visibleDB();
+
+
+
+
+
+
 
 
